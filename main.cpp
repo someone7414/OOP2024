@@ -67,14 +67,14 @@ int main(int argc, char *argv[]){
     PhotoMosaic *img5 = new PhotoMosaic();
     img5->createPhotomosaic("Image-Folder/girl_2x.png", "Image-Folder/mnist", 0);
     cout << "Photo mosaic created and saved as gray_mosaic.jpg" << endl;
-    img5->Display_X_Server();
+    //img5->Display_X_Server();
     img5->Display_CMD();
     delete img5;
 
     PhotoMosaic *img6 = new PhotoMosaic();
     img6->createPhotomosaic("Image-Folder/girl_2x.png", "Image-Folder/cifar10", 1);
     cout << "Photo mosaic created and saved as colored_mosaic.jpg" << endl;
-    img6->Display_X_Server();
+    //img6->Display_X_Server();
     img6->Display_CMD();
     delete img6;
 

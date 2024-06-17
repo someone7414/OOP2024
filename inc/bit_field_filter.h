@@ -13,7 +13,7 @@ using namespace std;
 #define CONTRAST_STRETCH 0b0000000000000100
 #define MOSAIC_FILTER 0b0000000000001000
 #define GAUSSIAN_BLUR 0b0000000000010000
-#define MEDIAN_FILTER 0b0000000000100000
+#define MEAN_FILTER 0b0000000000100000
 #define SHARPEN_FILTER 0b0000000001000000
 #define LINEAR_MOTION_BLUR 0b0000000010000000
 
@@ -29,7 +29,7 @@ void applySobelGradient(int width, int height, int **pixels);
 void applyContrastStretch(int width, int height, int **pixels);
 void applyMosaicFilter(int width, int height, int **pixels);
 void applyGaussianBlur(int width, int height, int **pixels);
-void applyMedianFilter(int width, int height, int **pixels);
+void applyMeanFilter(int width, int height, int **pixels);
 void applySharpenFilter(int width, int height, int **pixels);
 //RGB
 void applyInvertFilter(int width, int height, int ***pixels);

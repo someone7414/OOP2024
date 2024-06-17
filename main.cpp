@@ -12,6 +12,7 @@ int main(int argc, char *argv[]){
     img1->LoadImage("Image-Folder/mnist/img_100.jpg");
     img1->DumpImage("img1.jpg");
     //img1->Display_X_Server();
+    img1->Display_ASCII();
     img1->Display_CMD();
     delete img1;
 
@@ -19,6 +20,7 @@ int main(int argc, char *argv[]){
     img2->LoadImage("Image-Folder/lena.jpg");
     img2->DumpImage("img2.jpg");
     //img2->Display_X_Server();
+    img2->Display_ASCII();
     img2->Display_CMD();
     delete img2;
 
@@ -43,6 +45,7 @@ int main(int argc, char *argv[]){
     GrayImage *upscaled = new GrayImage(img3->get_width()*10, img3->get_height()*10);
     upscaleImage(img3->get_width(), img3->get_height(), img3->get_pixels(), upscaled->get_width(), upscaled->get_height(), upscaled->get_pixels());
     upscaled->DumpImage("upscaled.jpg");
+    //img3->Display_X_Server();
     upscaled->Display_CMD();
     delete img3;
     delete upscaled;
@@ -64,12 +67,14 @@ int main(int argc, char *argv[]){
     PhotoMosaic *img5 = new PhotoMosaic();
     img5->createPhotomosaic("Image-Folder/girl_2x.png", "Image-Folder/mnist", 0);
     cout << "Photo mosaic created and saved as gray_mosaic.jpg" << endl;
+    img5->Display_X_Server();
     img5->Display_CMD();
     delete img5;
 
     PhotoMosaic *img6 = new PhotoMosaic();
     img6->createPhotomosaic("Image-Folder/girl_2x.png", "Image-Folder/cifar10", 1);
     cout << "Photo mosaic created and saved as colored_mosaic.jpg" << endl;
+    img6->Display_X_Server();
     img6->Display_CMD();
     delete img6;
 

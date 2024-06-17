@@ -190,30 +190,40 @@ void applyGaussianBlur(int width, int height, int **pixels) {
     delete[] tempImage;
 }
 
-void applyMedianFilter(int width, int height, int **pixels) {
-    cout << "Applying Median Filter" << endl;
+void applyMeanFilter(int width, int height, int **pixels) {
+    cout << "Applying Mean Filter" << endl;
     int kernelSize = 3;
+    cout << "Enter a kernel size (odd number between 3 and 15): ";
+    cin >> kernelSize;
+    while (kernelSize < 3 || kernelSize > 15 || kernelSize % 2 == 0) {
+        cout << "Invalid input. Please enter an odd value between 3 and 15: ";
+        cin >> kernelSize;
+    }
+
+    int kernelRadius = kernelSize / 2;
     int **tempImage = new int*[height];
     for (int i = 0; i < height; ++i) {
         tempImage[i] = new int[width];
     }
 
-    for (int i = 1; i < height - 1; ++i) {
-        for (int j = 1; j < width - 1; ++j) {
-            int window[kernelSize * kernelSize];
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            int sum = 0;
             int count = 0;
-            for (int ki = -1; ki <= 1; ++ki) {
-                for (int kj = -1; kj <= 1; ++kj) {
-                    window[count++] = pixels[i + ki][j + kj];
+            for (int ki = -kernelRadius; ki <= kernelRadius; ++ki) {
+                for (int kj = -kernelRadius; kj <= kernelRadius; ++kj) {
+                    int x = min(max(j + kj, 0), width - 1);
+                    int y = min(max(i + ki, 0), height - 1);
+                    sum += pixels[y][x];
+                    count++;
                 }
             }
-            sort(window, window + kernelSize * kernelSize);
-            tempImage[i][j] = window[kernelSize * kernelSize / 2];
+            tempImage[i][j] = sum / count;
         }
     }
 
-    for (int i = 1; i < height - 1; ++i) {
-        for (int j = 1; j < width - 1; ++j) {
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
             pixels[i][j] = tempImage[i][j];
         }
     }
@@ -267,7 +277,7 @@ void applyLinearMotionBlur(int width, int height, int **pixels) {
     double angle = 0.0; // in degrees
     cout << "Enter a kernel size (odd number between 10 and 50): ";
     cin >> kernelSize;
-    while (kernelSize < 5 || kernelSize > 50 || kernelSize % 2 == 0) {
+    while (kernelSize < 10 || kernelSize > 50 || kernelSize % 2 == 0) {
         cout << "Invalid input. Please enter an odd value between 10 and 50: ";
         cin >> kernelSize;
     }
@@ -441,7 +451,7 @@ void applyFilters(GrayImage *image, uint16_t options) {
     if (options & CONTRAST_STRETCH) applyContrastStretch(width, height, pixels);
     if (options & MOSAIC_FILTER) applyMosaicFilter(width, height, pixels);
     if (options & GAUSSIAN_BLUR) applyGaussianBlur(width, height, pixels);
-    if (options & MEDIAN_FILTER) applyMedianFilter(width, height, pixels);
+    if (options & MEAN_FILTER) applyMeanFilter(width, height, pixels);
     if (options & SHARPEN_FILTER) applySharpenFilter(width, height, pixels);
     if (options & LINEAR_MOTION_BLUR) applyLinearMotionBlur(width, height, pixels);
 }
